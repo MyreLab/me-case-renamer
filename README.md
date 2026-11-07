@@ -64,5 +64,3 @@ The 15 automated tests use fake files and check that the tool:
 - skips files that would end up with the same name, or would overwrite an existing file
 - previews without renaming, renames only with `--apply`, and finds nothing new on a re-run
 - ignores files that aren't PDFs
-
-The tests also run automatically on GitHub after every push.
