@@ -10,6 +10,7 @@ It started as a personal notebook (`MBrenaming.ipynb`, kept here for reference).
 - Skips and reports any file it can't rename safely: no case number, conflicting case numbers, an unreadable PDF, an unexpected file name, two files that would get the same name, or a name that already exists
 - Ignores anything in the folder that isn't a PDF, and leaves already-renamed files alone, so it's safe to re-run on the same folder
 - Exits with a non-zero code when files are skipped, so a scheduled job can flag them
+- Covered by 15 automated `pytest` tests, which run on every push with GitHub Actions
 
 Run it:
 ```bash
