@@ -57,7 +57,7 @@ Tests:
 ```bash
 pytest
 ```
-The 15 automated tests use fake files, never real case data, and check that the tool:
+The 15 automated tests use fake files and check that the tool:
 - reads the case year, month received, and case number correctly, and rejects malformed ones
 - matches each file with its own case number, even when a neighbouring file is broken
 - skips files that would end up with the same name, or would overwrite an existing file
