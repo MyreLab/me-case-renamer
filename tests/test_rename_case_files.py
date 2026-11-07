@@ -101,6 +101,12 @@ def test_existing_file_is_not_overwritten(tmp_path):
     assert "already exists" in plan.problem
 
 
+def test_already_renamed_files_are_left_alone(tmp_path):
+    (tmp_path / "22-01234_2022_May2022.pdf").touch()
+
+    assert plan_renames(tmp_path, read_text=lambda path: "") == []
+
+
 def test_non_pdf_files_are_ignored(tmp_path):
     (tmp_path / "notes.txt").touch()
     (tmp_path / ".DS_Store").touch()
@@ -131,3 +137,11 @@ def test_apply_renames_good_files_and_reports_bad_ones(tmp_path):
     assert (tmp_path / "22-01234_2022_May2022.pdf").exists()
     assert (tmp_path / "abs_split_2022_b_May2022_2.pdf").exists()
     assert (tmp_path / "abs_split_2022_c_May2022_3.pdf").exists()
+
+
+def test_rerunning_after_apply_finds_nothing_new(tmp_path):
+    make_pdf(tmp_path / "abs_split_2022_a_May2022_1.pdf", "Case ME#22-01234")
+    main([str(tmp_path), "--apply"])
+
+    assert main([str(tmp_path), "--apply"]) == 0
+    assert (tmp_path / "22-01234_2022_May2022.pdf").exists()

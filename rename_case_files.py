@@ -27,6 +27,7 @@ HEADER_CHARS = 100
 ME_PATTERN = re.compile(r"ME#(\S+)")
 YEAR_PATTERN = re.compile(r"\d{4}")
 MONTH_PATTERN = re.compile(r"[A-Za-z]+\d{4}")  # e.g. May2022
+RENAMED_PATTERN = re.compile(r"[^_]+_\d{4}_[A-Za-z]+\d{4}\.pdf", re.IGNORECASE)  # e.g. 22-01234_2022_May2022.pdf
 
 log = logging.getLogger("rename_case_files")
 
@@ -76,7 +77,9 @@ def plan_renames(folder: Path, read_text: Callable[[Path], str] = read_first_pag
     names of the others.
     """
     plans = []
-    pdfs = sorted(p for p in folder.iterdir() if p.is_file() and p.suffix.lower() == ".pdf")
+    # files already in the final format are left alone, so the tool can safely be re-run on the same folder
+    pdfs = sorted(p for p in folder.iterdir()
+                  if p.is_file() and p.suffix.lower() == ".pdf" and not RENAMED_PATTERN.fullmatch(p.name))
     for pdf in pdfs:
         try:
             year, month = parse_filename(pdf.name)
