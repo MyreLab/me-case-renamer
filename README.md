@@ -1,4 +1,4 @@
-# Python File Reader
+# Medical Examiner Case File Renamer
 
 *Background*: My team and I are responsible for the data analysis and management of hundreds of mortality data files received from the Chief Medical Examiner's Office on a monthly basis. A solution was needed to continually rename incoming files with required information, including a case identifier number unique to each mortality case. Automating it cut the monthly renaming from about 4 hours to 5 minutes.
 
